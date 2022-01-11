@@ -43,7 +43,7 @@ allprojects {
         useJUnitPlatform()
     }
 
-    if(project.name.equals("object-movie-application")){
+    if (project.name == "object-movie-application") {
         java.sourceCompatibility = JavaVersion.VERSION_11
         apply(plugin = "kotlin")
         apply(plugin = "kotlin-spring")
@@ -59,10 +59,8 @@ allprojects {
             implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
             testImplementation("org.springframework.boot:spring-boot-starter-test")
         }
-    }
-    else if(project.name.equals("object-movie-infra")){
+    } else if (project.name == "object-movie-infra") {
         java.sourceCompatibility = JavaVersion.VERSION_11
-
         apply(plugin = "kotlin")
         apply(plugin = "kotlin-spring")
         apply(plugin = "kotlin-kapt")
@@ -80,40 +78,3 @@ allprojects {
         }
     }
 }
-//
-//project(":object-movie-application") {
-//    java.sourceCompatibility = JavaVersion.VERSION_11
-//    apply(plugin = "kotlin")
-//    apply(plugin = "kotlin-spring")
-//    apply(plugin = "kotlin-kapt")
-//    apply(plugin = "org.springframework.boot")
-//    apply(plugin = "io.spring.dependency-management")
-//
-//    dependencies {
-//        implementation("org.springframework.boot:spring-boot-starter-web")
-//        implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-//        implementation("org.jetbrains.kotlin:kotlin-reflect")
-//        implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-//        testImplementation("org.springframework.boot:spring-boot-starter-test")
-//    }
-//}
-//
-//project(":object-movie-infra") {
-//    java.sourceCompatibility = JavaVersion.VERSION_11
-//
-//    apply(plugin = "kotlin")
-//    apply(plugin = "kotlin-spring")
-//    apply(plugin = "kotlin-kapt")
-//    apply(plugin = "org.springframework.boot")
-//    apply(plugin = "io.spring.dependency-management")
-//    apply(plugin = "kotlin-jpa")
-//
-//    dependencies {
-//        implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-//        implementation("org.jetbrains.kotlin:kotlin-reflect")
-//        implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-//        implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-//        runtimeOnly("com.h2database:h2")
-//        testImplementation("org.springframework.boot:spring-boot-starter-test")
-//    }
-//}
