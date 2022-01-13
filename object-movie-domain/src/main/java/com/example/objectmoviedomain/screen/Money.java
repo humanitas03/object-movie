@@ -3,8 +3,10 @@ package com.example.objectmoviedomain.screen;
 
 import java.math.BigDecimal;
 import lombok.Getter;
+import lombok.ToString;
 
 @Getter
+@ToString
 public class Money {
     public static final Money ZERO = Money.wons(0);
 
