@@ -1,13 +1,14 @@
 spring:
   datasource:
-    url: jdbc:h2:mem:localdb
-    username: root
-    password: local
-    driverClassName: org.h2.Driver
+    url: jdbc:mysql://localhost:3320/moviedb?useSSL=false&allowPublicKeyRetrieval=true
+    username: movieadmin
+    password: movie
+    driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
+    database-platform: org.hibernate.dialect.MySQL5Dialect
+    show-sql: true
     properties:
       hibernate:
-        show_sql: true
         format_sql: true
     hibernate:
       ddl-auto: update

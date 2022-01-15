@@ -1,0 +1,21 @@
+version: "3.7"
+volumes:
+  object-movie-dbdata:
+services:
+  kitchen-force-db:
+    image: mysql:8.0
+    restart: unless-stopped
+    container_name: object-movie-db
+    ports:
+      - "3320:3306"
+    environment:
+      - MYSQL_DATABASE=moviedb
+      - MYSQL_USER=movieadmin
+      - MYSQL_PASSWORD=movie
+      - MYSQL_ROOT_PASSWORD=1234
+      - TZ=Asia/Seoul
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - object-movie-dbdata:/var/lib/mysql8

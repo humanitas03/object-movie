@@ -1,11 +1,10 @@
 import org.gradle.api.tasks.bundling.Jar
-import org.springframework.boot.gradle.tasks.bundling.BootJar
 
-val jar: Jar by tasks
-val bootJar: BootJar by tasks
-
-bootJar.enabled = false
-jar.enabled = true
+// val jar: Jar by tasks
+// val bootJar: BootJar by tasks
+//
+// bootJar.enabled = false
+// jar.enabled = true
 
 // tasks.getByName("bootJar") {
 //    this.enabled = false
@@ -13,6 +12,20 @@ jar.enabled = true
 
 dependencies {
     implementation(project(":object-movie-domain"))
+    implementation("org.springframework.boot:spring-boot-starter")
+    implementation("mysql:mysql-connector-java")
+    testImplementation("com.h2database:h2:1.4.200")
 }
 
 tasks.register("prepareKotlinBuildScriptModel") {}
+//
+tasks.register<Jar>("testJar") {
+    archiveFileName.set("object-movie-infra-test.jar")
+    from(project.the<SourceSetContainer>()["test"].output)
+}
+
+configurations.register("testArchive")
+
+artifacts {
+    add("testArchive", tasks.getByName("testJar"))
+}

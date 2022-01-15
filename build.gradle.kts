@@ -19,6 +19,8 @@ allprojects {
     group = "com.example"
     version = "0.0.1-SNAPSHOT"
 
+    ext["log4j2.version"] = "2.17.1"
+
     apply(plugin = "idea")
     apply(plugin = "java")
 
@@ -58,6 +60,7 @@ allprojects {
             implementation("org.jetbrains.kotlin:kotlin-reflect")
             implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
             testImplementation("org.springframework.boot:spring-boot-starter-test")
+            testImplementation("com.h2database:h2:1.4.200")
         }
     } else if (project.name == "object-movie-infra") {
         java.sourceCompatibility = JavaVersion.VERSION_11
@@ -73,7 +76,6 @@ allprojects {
             implementation("org.jetbrains.kotlin:kotlin-reflect")
             implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
             implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-            runtimeOnly("com.h2database:h2")
             testImplementation("org.springframework.boot:spring-boot-starter-test")
         }
     }
