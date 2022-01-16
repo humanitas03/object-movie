@@ -3,6 +3,7 @@ package com.example.objectmovieinfra.jpa.entities
 import com.example.objectmoviedomain.screen.Screening
 import java.time.LocalDateTime
 import java.util.UUID
+import javax.persistence.CascadeType
 import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
@@ -27,7 +28,7 @@ class ScreeningJpaEntity(
     @Column
     var whenScreened: LocalDateTime,
 
-    @OneToOne
+    @OneToOne(cascade = [CascadeType.ALL])
     @JoinColumn(name = "movie_id")
     var movie: MovieJpaEntity
 ) {

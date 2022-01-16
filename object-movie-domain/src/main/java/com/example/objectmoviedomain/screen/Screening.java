@@ -2,11 +2,15 @@ package com.example.objectmoviedomain.screen;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
+
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Getter
 @ToString
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Screening {
 
     private UUID screeningId;
@@ -28,17 +32,19 @@ public class Screening {
         this.whenScreened = whenScreened;
     }
 
-    public LocalDateTime getStartTime() {
-        return whenScreened;
-    }
+    // TODO : for jackson deserialize...
+//    public LocalDateTime getStartTime() {
+//        return whenScreened;
+//    }
 
     public boolean isSequence(int sequence) {
         return this.sequence == sequence;
     }
 
-    public Money getMovieFee() {
-        return movie.getFee();
-    }
+    // TODO : for jackson deserialize...
+//    public Money getMovieFee() {
+//        return movie.getFee();
+//    }
 
     public Reservation reserve(Customer customer, int audienceCount) {
         return new Reservation(customer, this, calculateFee(audienceCount), audienceCount);

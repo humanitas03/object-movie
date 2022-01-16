@@ -2,11 +2,15 @@ package com.example.objectmoviedomain.screen;
 
 import java.time.Duration;
 import java.util.UUID;
+
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Getter
 @ToString
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Movie {
     private UUID movieId;
     private String title;

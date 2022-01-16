@@ -2,15 +2,19 @@ package com.example.objectmoviedomain.screen;
 
 
 import java.math.BigDecimal;
+
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Getter
 @ToString
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Money {
     public static final Money ZERO = Money.wons(0);
 
-    private final BigDecimal amount;
+    private BigDecimal amount;
 
     public static Money wons(long amount) {
         return new Money(BigDecimal.valueOf(amount));

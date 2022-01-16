@@ -5,4 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 
 @Repository
-interface ReservationJpaRepository : JpaRepository<ReservationJpaEntity, Long>
+interface ReservationJpaRepository : JpaRepository<ReservationJpaEntity, Long> {
+    fun findByReservationId(reservationId: String): ReservationJpaEntity?
+}

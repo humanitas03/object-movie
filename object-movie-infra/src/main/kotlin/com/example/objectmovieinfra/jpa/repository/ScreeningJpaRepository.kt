@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface ScreeningJpaRepository : JpaRepository<ScreeningJpaEntity, Long> {
-    fun findByScreeningId(screeningId: String): ScreeningJpaEntity
+    fun findByScreeningId(screeningId: String): ScreeningJpaEntity?
 }

@@ -3,7 +3,8 @@ package com.example.objectmovieinfra.jpa.entities
 import com.example.objectmoviedomain.screen.Customer
 import com.example.objectmoviedomain.screen.Money
 import com.example.objectmoviedomain.screen.Reservation
-import java.util.*
+import java.util.UUID
+import javax.persistence.CascadeType
 import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
@@ -33,7 +34,7 @@ class ReservationJpaEntity(
     @Column
     var fee: Long,
 
-    @OneToOne
+    @OneToOne(cascade = [CascadeType.ALL])
     @JoinColumn(name = "screening_id")
     var screening: ScreeningJpaEntity
 ) {

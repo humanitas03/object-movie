@@ -1,4 +1,4 @@
-package com.example.objectmoviedomain.store;
+package com.example.objectmoviedomain.interfaces.store;
 
 import com.example.objectmoviedomain.screen.Reservation;
 import java.util.UUID;

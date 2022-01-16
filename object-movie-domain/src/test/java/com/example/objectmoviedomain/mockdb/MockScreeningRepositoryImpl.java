@@ -1,7 +1,7 @@
 package com.example.objectmoviedomain.mockdb;
 
 import com.example.objectmoviedomain.screen.Screening;
-import com.example.objectmoviedomain.store.ScreeningRepository;
+import com.example.objectmoviedomain.interfaces.store.ScreeningRepository;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;

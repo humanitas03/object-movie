@@ -1,4 +1,4 @@
-package com.example.objectmoviedomain.service;
+package com.example.objectmoviedomain.interfaces.service;
 
 import com.example.objectmoviedomain.screen.Customer;
 import com.example.objectmoviedomain.screen.Reservation;

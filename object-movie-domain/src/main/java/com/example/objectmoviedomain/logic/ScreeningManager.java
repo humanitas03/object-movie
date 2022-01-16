@@ -3,9 +3,9 @@ package com.example.objectmoviedomain.logic;
 import com.example.objectmoviedomain.screen.Customer;
 import com.example.objectmoviedomain.screen.Reservation;
 import com.example.objectmoviedomain.screen.Screening;
-import com.example.objectmoviedomain.service.ScreeningService;
-import com.example.objectmoviedomain.store.ReservationRepository;
-import com.example.objectmoviedomain.store.ScreeningRepository;
+import com.example.objectmoviedomain.interfaces.service.ScreeningService;
+import com.example.objectmoviedomain.interfaces.store.ReservationRepository;
+import com.example.objectmoviedomain.interfaces.store.ScreeningRepository;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 

@@ -59,6 +59,7 @@ allprojects {
             implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
             implementation("org.jetbrains.kotlin:kotlin-reflect")
             implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+            implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.9.5")
             testImplementation("org.springframework.boot:spring-boot-starter-test")
             testImplementation("com.h2database:h2:1.4.200")
         }

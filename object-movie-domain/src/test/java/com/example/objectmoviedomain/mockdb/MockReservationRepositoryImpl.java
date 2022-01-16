@@ -1,7 +1,7 @@
 package com.example.objectmoviedomain.mockdb;
 
 import com.example.objectmoviedomain.screen.Reservation;
-import com.example.objectmoviedomain.store.ReservationRepository;
+import com.example.objectmoviedomain.interfaces.store.ReservationRepository;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;

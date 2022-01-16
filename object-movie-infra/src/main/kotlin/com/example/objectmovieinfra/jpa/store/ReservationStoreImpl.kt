@@ -1,7 +1,8 @@
 package com.example.objectmovieinfra.jpa.store
 
+import com.example.objectmoviedomain.interfaces.store.ReservationRepository
 import com.example.objectmoviedomain.screen.Reservation
-import com.example.objectmoviedomain.store.ReservationRepository
+import com.example.objectmovieinfra.jpa.entities.ReservationJpaEntity
 import com.example.objectmovieinfra.jpa.repository.ReservationJpaRepository
 import org.springframework.stereotype.Repository
 import java.util.UUID
@@ -11,10 +12,14 @@ class ReservationStoreImpl(
     val jpaRepository: ReservationJpaRepository
 ) : ReservationRepository {
     override fun create(reservation: Reservation?) {
-        TODO("Not yet implemented")
+        reservation?.let {
+            jpaRepository.save(ReservationJpaEntity.from(reservation))
+        }
     }
 
     override fun retrieveOne(reservationId: UUID?): Reservation {
-        TODO("Not yet implemented")
+        return jpaRepository.findByReservationId(reservationId.toString())?.run {
+            this.toDomainEntity()
+        } ?: throw NoSuchElementException("예매 조회 실패 :  $reservationId")
     }
 }
