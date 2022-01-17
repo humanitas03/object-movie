@@ -16,19 +16,22 @@ public class Movie {
     private String title;
     private Duration runningTime;
     private Money fee;
+    private DiscountPolicy discountPolicy;
 
-    public Movie(String title, Duration runningTime, Money fee) {
+    public Movie(String title, Duration runningTime, Money fee, DiscountPolicy discountPolicy) {
         this.movieId = UUID.randomUUID();
         this.title = title;
         this.runningTime = runningTime;
         this.fee = fee;
+        this.discountPolicy = discountPolicy;
     }
 
-    public Movie(UUID movieId, String title, Duration runningTime, Money fee) {
+    public Movie(UUID movieId, String title, Duration runningTime, Money fee, DiscountPolicy discountPolicy) {
         this.movieId = movieId;
         this.title = title;
         this.runningTime = runningTime;
         this.fee = fee;
+        this.discountPolicy = discountPolicy;
     }
 
     public Money getFee() {
@@ -36,7 +39,6 @@ public class Movie {
     }
 
     public Money calculateMovieFee(Screening screening) {
-        // TODO : Not implemented
-        return fee;
+        return fee.minus(discountPolicy.calculateDiscountAmount(screening));
     }
 }
