@@ -2,6 +2,7 @@ package com.example.objectmovieapplication.store
 
 import com.example.objectmoviedomain.screen.Money
 import com.example.objectmoviedomain.screen.Movie
+import com.example.objectmoviedomain.screen.NoneDiscountPolicy
 import com.example.objectmovieinfra.jpa.store.MovieStoreImpl
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ActiveProfiles
 import java.time.Duration
+import java.util.* // ktlint-disable no-wildcard-imports
 import javax.persistence.EntityManagerFactory
 
 @SpringBootTest
@@ -26,7 +28,8 @@ class MovieStoreImplTest @Autowired constructor(
         val testMovie = Movie(
             "title",
             Duration.ofMinutes(100L),
-            Money.wons(1_000)
+            Money.wons(1_000),
+            NoneDiscountPolicy(UUID.randomUUID()),
         )
 
         val em = emf.createEntityManager()

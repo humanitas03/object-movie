@@ -8,6 +8,7 @@ import com.example.objectmoviedomain.mockdb.MockScreeningRepositoryImpl;
 import com.example.objectmoviedomain.screen.Customer;
 import com.example.objectmoviedomain.screen.Money;
 import com.example.objectmoviedomain.screen.Movie;
+import com.example.objectmoviedomain.screen.NoneDiscountPolicy;
 import com.example.objectmoviedomain.screen.Screening;
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -24,7 +25,7 @@ public class ScreeningManagerTest {
         var screeningRepo = new MockScreeningRepositoryImpl();
         var reservationRepo = new MockReservationRepositoryImpl();
 
-        var testScreening = new Screening(new Movie("sample", Duration.ofMinutes(100L), Money.wons(100)), 1, LocalDateTime.now());
+        var testScreening = new Screening(new Movie("sample", Duration.ofMinutes(100L), Money.wons(100), new NoneDiscountPolicy()), 1, LocalDateTime.now());
         screeningRepo.create(testScreening);
 
         var manager = new ScreeningManager(

@@ -6,8 +6,7 @@ import java.util.UUID
 import javax.persistence.CascadeType
 import javax.persistence.Column
 import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.GenerationType
+import javax.persistence.FetchType
 import javax.persistence.Id
 import javax.persistence.JoinColumn
 import javax.persistence.OneToOne
@@ -16,10 +15,8 @@ import javax.persistence.Table
 @Entity
 @Table(name = "tb_screening")
 class ScreeningJpaEntity(
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long? = null,
-
-    @Column
+    @Id
+    @Column(length = 38)
     var screeningId: String,
 
     @Column
@@ -28,14 +25,14 @@ class ScreeningJpaEntity(
     @Column
     var whenScreened: LocalDateTime,
 
-    @OneToOne(cascade = [CascadeType.ALL])
+    @OneToOne(cascade = [CascadeType.ALL], fetch = FetchType.EAGER)
     @JoinColumn(name = "movie_id")
     var movie: MovieJpaEntity
 ) {
     companion object {
         fun from(screening: Screening): ScreeningJpaEntity {
             return ScreeningJpaEntity(
-                id = null,
+//                id = null,
                 screeningId = screening.screeningId.toString(),
                 sequence = screening.sequence,
                 whenScreened = screening.whenScreened,

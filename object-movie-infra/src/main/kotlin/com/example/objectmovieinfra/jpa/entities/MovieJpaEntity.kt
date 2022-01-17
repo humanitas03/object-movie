@@ -4,21 +4,21 @@ import com.example.objectmoviedomain.screen.Money
 import com.example.objectmoviedomain.screen.Movie
 import java.time.Duration
 import java.util.UUID
+import javax.persistence.CascadeType
 import javax.persistence.Column
 import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.GenerationType
+import javax.persistence.FetchType
 import javax.persistence.Id
+import javax.persistence.JoinTable
+import javax.persistence.ManyToMany
 import javax.persistence.Table
 
 @Entity
 @Table(name = "tb_movie")
 class MovieJpaEntity(
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long? = null,
 
-    @Column
+    @Id
+    @Column(length = 38)
     var movieId: String,
 
     @Column
@@ -29,14 +29,19 @@ class MovieJpaEntity(
 
     @Column
     var fee: Long,
+
+    @ManyToMany(cascade = [CascadeType.ALL], fetch = FetchType.EAGER)
+    @JoinTable(name = "tb_movie_discount_policy")
+    var discountPolicies: List<DiscountPolicyJpaEntity>?
 ) {
     companion object {
         fun from(movie: Movie): MovieJpaEntity = MovieJpaEntity(
-            id = null,
+//            id = null,
             movieId = movie.movieId.toString(),
             movieTitle = movie.title,
             runningTime = movie.runningTime.toMinutes(),
-            fee = movie.fee.amount.toLong()
+            fee = movie.fee.amount.toLong(),
+            discountPolicies = listOf(DiscountPolicyJpaEntity.from(movie.discountPolicy))
         )
     }
 
@@ -45,7 +50,8 @@ class MovieJpaEntity(
             UUID.fromString(movieId),
             movieTitle,
             Duration.ofMinutes(runningTime),
-            Money.wons(fee)
+            Money.wons(fee),
+            discountPolicies?.map { it.toAbstractDomain() }?.first()
         )
     }
 }

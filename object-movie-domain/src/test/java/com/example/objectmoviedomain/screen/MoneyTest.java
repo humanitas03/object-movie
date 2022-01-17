@@ -1,4 +1,4 @@
-package com.example.objectmoviedomain;
+package com.example.objectmoviedomain.screen;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
