@@ -6,6 +6,7 @@ import com.example.objectmoviedomain.interfaces.store.ScreeningRepository
 import com.example.objectmoviedomain.screen.Customer
 import com.example.objectmoviedomain.screen.Money
 import com.example.objectmoviedomain.screen.Movie
+import com.example.objectmoviedomain.screen.NoneDiscountPolicy
 import com.example.objectmoviedomain.screen.Screening
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.DisplayName
@@ -32,7 +33,8 @@ class ScreeningServiceImplTest @Autowired constructor(
     private val testMovie = Movie(
         "title",
         Duration.ofMinutes(100L),
-        Money.wons(1_000)
+        Money.wons(1_000),
+        NoneDiscountPolicy(),
     )
 
     private val testScreen = Screening(

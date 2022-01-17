@@ -1,12 +1,25 @@
 package com.example.objectmoviedomain.screen;
 
 import java.util.*;
+import lombok.Getter;
 
+@Getter
 public abstract class DiscountPolicy {
+    private UUID discountPolicyId;
     private List<DiscountCondition> conditions = new ArrayList<>();
+
+    public DiscountPolicy() {
+        this.discountPolicyId = UUID.randomUUID();
+    }
 
     public DiscountPolicy(DiscountCondition ... conditions) {
         this.conditions = Arrays.asList(conditions);
+        this.discountPolicyId = UUID.randomUUID();
+    }
+
+    public DiscountPolicy(UUID discountPolicyId, DiscountCondition ... conditions) {
+        this.conditions = Arrays.asList(conditions);
+        this.discountPolicyId = discountPolicyId;
     }
 
     public Money calculateDiscountAmount(Screening screening) {

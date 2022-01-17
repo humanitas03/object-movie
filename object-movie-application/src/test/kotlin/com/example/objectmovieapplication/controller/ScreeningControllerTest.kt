@@ -6,7 +6,7 @@ import com.example.objectmoviedomain.interfaces.store.ScreeningRepository
 import com.example.objectmoviedomain.screen.Customer
 import com.example.objectmoviedomain.screen.Money
 import com.example.objectmoviedomain.screen.Movie
-import com.example.objectmoviedomain.screen.Reservation
+import com.example.objectmoviedomain.screen.NoneDiscountPolicy
 import com.example.objectmoviedomain.screen.Screening
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.junit.jupiter.api.BeforeAll
@@ -39,7 +39,8 @@ class ScreeningControllerTest @Autowired constructor(
     private val testMovie = Movie(
         "title",
         Duration.ofMinutes(100L),
-        Money.wons(1_000)
+        Money.wons(1_000),
+        NoneDiscountPolicy(),
     )
 
     private val testScreen = Screening(
@@ -52,7 +53,7 @@ class ScreeningControllerTest @Autowired constructor(
 
     @BeforeAll
     fun setUpData() {
-        movieRepository.create(testMovie)
+//        movieRepository.create(testMovie)
         screeningRepository.create(testScreen)
     }
 
@@ -74,7 +75,7 @@ class ScreeningControllerTest @Autowired constructor(
             .andExpect { content().contentType(MediaType.APPLICATION_JSON) }
             .andReturn()
 
-        val resultReservation = objectMapper.readValue(result.response.contentAsString, Reservation::class.java)
-        println(resultReservation)
+//        val resultReservation = objectMapper.readValue(result.response.contentAsString, Reservation::class.java)
+//        println(resultReservation)
     }
 }

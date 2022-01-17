@@ -3,15 +3,14 @@ package com.example.objectmovieinfra.jpa.entities
 import com.example.objectmoviedomain.screen.Customer
 import com.example.objectmoviedomain.screen.Money
 import com.example.objectmoviedomain.screen.Reservation
-import java.util.UUID
+import java.util.* // ktlint-disable no-wildcard-imports
 import javax.persistence.CascadeType
 import javax.persistence.Column
 import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.GenerationType
+import javax.persistence.FetchType
 import javax.persistence.Id
 import javax.persistence.JoinColumn
-import javax.persistence.OneToOne
+import javax.persistence.ManyToOne
 import javax.persistence.Table
 
 @Entity
@@ -19,10 +18,7 @@ import javax.persistence.Table
 class ReservationJpaEntity(
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long? = null,
-
-    @Column
+    @Column(length = 38)
     var reservationId: String,
 
     @Column
@@ -34,14 +30,14 @@ class ReservationJpaEntity(
     @Column
     var fee: Long,
 
-    @OneToOne(cascade = [CascadeType.ALL])
+    @ManyToOne(cascade = [CascadeType.ALL], fetch = FetchType.EAGER)
     @JoinColumn(name = "screening_id")
     var screening: ScreeningJpaEntity
 ) {
     companion object {
         fun from(reservation: Reservation): ReservationJpaEntity {
             return ReservationJpaEntity(
-                id = null,
+//                id = null,
                 reservationId = reservation.reservationId.toString(),
                 customerName = reservation.customer.name,
                 audienceCount = reservation.audienceCount,
