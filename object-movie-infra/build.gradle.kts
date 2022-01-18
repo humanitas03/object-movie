@@ -15,6 +15,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter")
     implementation("mysql:mysql-connector-java")
     testImplementation("com.h2database:h2:1.4.200")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.0")
 }
 
 tasks.register("prepareKotlinBuildScriptModel") {}

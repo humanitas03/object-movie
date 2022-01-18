@@ -1,7 +1,7 @@
 package com.example.objectmovieinfra.jpa.entities
 
 import com.example.objectmoviedomain.screen.DiscountCondition
-import com.example.objectmoviedomain.screen.DiscountPolicy
+import com.fasterxml.jackson.annotation.JsonBackReference
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
@@ -18,19 +18,19 @@ class DiscountPolicyConditionJpaEntity(
 
     @ManyToOne
     @JoinColumn(name = "discount_policy_id")
+    @JsonBackReference
     var discountPolicy: DiscountPolicyJpaEntity?,
 
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "discount_condition_id")
     var discountCondition: DiscountConditionJpaEntity?
 ) {
     companion object {
-        fun fromDiscountPolicy(discountPolicy: DiscountPolicy?, discountCondition: DiscountCondition?): DiscountPolicyConditionJpaEntity {
+        fun fromDiscountPolicy(discountPolicy: DiscountPolicyJpaEntity?, discountCondition: DiscountCondition?): DiscountPolicyConditionJpaEntity {
             return DiscountPolicyConditionJpaEntity(
                 id = null,
-                discountPolicy = discountPolicy?.run {
-                    DiscountPolicyJpaEntity.from(this)
-                },
+                discountPolicy = discountPolicy,
                 discountCondition = discountCondition?.run {
                     DiscountConditionJpaEntity.from(this)
                 }

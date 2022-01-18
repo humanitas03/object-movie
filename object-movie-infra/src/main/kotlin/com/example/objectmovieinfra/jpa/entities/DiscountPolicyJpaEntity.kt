@@ -8,6 +8,8 @@ import com.example.objectmoviedomain.screen.NoneDiscountPolicy
 import com.example.objectmoviedomain.screen.PercentDiscountPolicy
 import com.example.objectmovieinfra.jpa.entities.enums.DiscountConditionType
 import com.example.objectmovieinfra.jpa.entities.enums.DiscountPolicyType
+import com.fasterxml.jackson.annotation.JsonFormat
+import com.fasterxml.jackson.annotation.JsonManagedReference
 import java.math.BigDecimal
 import java.util.* // ktlint-disable no-wildcard-imports
 import javax.persistence.Column
@@ -34,10 +36,12 @@ class DiscountPolicyJpaEntity(
     @Column(columnDefinition = "DECIMAL(11,4)", nullable = true)
     var percent: BigDecimal?,
 
-    @Column(nullable = true)
-    var amount: Long?,
+    @Column(nullable = true, columnDefinition = "BIGINT(15)")
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    var amount: BigDecimal?,
 
     @OneToMany(mappedBy = "discountPolicy", fetch = FetchType.LAZY)
+    @JsonManagedReference
     var discountPolicyConditionJpaEntities: List<DiscountPolicyConditionJpaEntity>?
 ) {
     companion object {
@@ -49,17 +53,21 @@ class DiscountPolicyJpaEntity(
                         discountPolicyType = DiscountPolicyType.PERCENT,
                         percent = BigDecimal.valueOf(discountPolicy.percent),
                         amount = null,
-                        discountPolicyConditionJpaEntities = discountPolicy.conditions.map { DiscountPolicyConditionJpaEntity.fromDiscountPolicy(discountPolicy, it) }
-                    )
+                        discountPolicyConditionJpaEntities = null
+                    ).apply {
+                        this.discountPolicyConditionJpaEntities = discountPolicy.conditions.map { DiscountPolicyConditionJpaEntity.fromDiscountPolicy(this, it) }
+                    }
                 }
                 is AmountDiscountPolicy -> {
                     DiscountPolicyJpaEntity(
                         discountPolicyId = discountPolicy.discountPolicyId.toString(),
                         discountPolicyType = DiscountPolicyType.AMOUNT,
                         percent = null,
-                        amount = discountPolicy.discountAmount.amount.longValueExact(),
-                        discountPolicyConditionJpaEntities = discountPolicy.conditions.map { DiscountPolicyConditionJpaEntity.fromDiscountPolicy(discountPolicy, it) }
-                    )
+                        amount = discountPolicy.discountAmount.amount,
+                        discountPolicyConditionJpaEntities = null
+                    ).apply {
+                        this.discountPolicyConditionJpaEntities = discountPolicy.conditions.map { DiscountPolicyConditionJpaEntity.fromDiscountPolicy(this, it) }
+                    }
                 }
                 is NoneDiscountPolicy -> {
                     DiscountPolicyJpaEntity(
@@ -67,8 +75,10 @@ class DiscountPolicyJpaEntity(
                         discountPolicyType = DiscountPolicyType.NONE,
                         percent = null,
                         amount = null,
-                        discountPolicyConditionJpaEntities = discountPolicy.conditions.map { DiscountPolicyConditionJpaEntity.fromDiscountPolicy(discountPolicy, null) },
-                    )
+                        discountPolicyConditionJpaEntities = null,
+                    ).apply {
+                        this.discountPolicyConditionJpaEntities = discountPolicy.conditions.map { DiscountPolicyConditionJpaEntity.fromDiscountPolicy(this, null) }
+                    }
                 }
                 else -> throw RuntimeException("unexpected Discount Policy Type")
             }
@@ -113,7 +123,7 @@ class DiscountPolicyJpaEntity(
 
         return AmountDiscountPolicy(
             UUID.fromString(discountPolicyId),
-            Money.wons(amount ?: 0L),
+            Money.wons(amount?.longValueExact() ?: 0L),
             *getConditions()
         )
     }
@@ -132,6 +142,16 @@ class DiscountPolicyJpaEntity(
             DiscountPolicyType.AMOUNT -> toAmountDomain()
             DiscountPolicyType.NONE -> toNoneDomain()
             DiscountPolicyType.PERCENT -> toPercentDomain()
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    fun <T : DiscountPolicy> toGenericDomain(clazz: Class<out DiscountPolicy>): T {
+        return when (clazz) {
+            NoneDiscountPolicy::class.java -> toNoneDomain() as T
+            AmountDiscountPolicy::class.java -> toAmountDomain() as T
+            PercentDiscountPolicy::class.java -> toPercentDomain() as T
+            else -> throw RuntimeException("DiscountPolicy Return fail")
         }
     }
 }

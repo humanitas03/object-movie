@@ -4,6 +4,7 @@ import com.example.objectmoviedomain.screen.DiscountCondition
 import com.example.objectmoviedomain.screen.PeriodCondition
 import com.example.objectmoviedomain.screen.SequenceCondition
 import com.example.objectmovieinfra.jpa.entities.enums.DiscountConditionType
+import com.fasterxml.jackson.annotation.JsonManagedReference
 import java.time.DayOfWeek
 import java.time.LocalTime
 import java.util.* // ktlint-disable no-wildcard-imports
@@ -43,6 +44,7 @@ class DiscountConditionJpaEntity(
     var sequence: Int?,
 
     @OneToMany(mappedBy = "discountCondition", fetch = FetchType.LAZY)
+    @JsonManagedReference
     var discountPolicyConditionJpaEntities: List<DiscountPolicyConditionJpaEntity>?
 ) {
     companion object {
@@ -56,8 +58,10 @@ class DiscountConditionJpaEntity(
                         dayOfWeek = null,
                         startTime = null,
                         endTime = null,
-                        discountPolicyConditionJpaEntities = listOf(DiscountPolicyConditionJpaEntity.fromDiscountPolicy(null, discountCondition))
-                    )
+                        discountPolicyConditionJpaEntities = null
+                    ).apply {
+                        this.discountPolicyConditionJpaEntities = listOf(DiscountPolicyConditionJpaEntity(null, null, this))
+                    }
                 }
                 is PeriodCondition -> {
                     DiscountConditionJpaEntity(
@@ -67,8 +71,10 @@ class DiscountConditionJpaEntity(
                         dayOfWeek = discountCondition.dayOfWeek,
                         startTime = discountCondition.startTime,
                         endTime = discountCondition.endTime,
-                        discountPolicyConditionJpaEntities = listOf(DiscountPolicyConditionJpaEntity.fromDiscountPolicy(null, discountCondition))
-                    )
+                        discountPolicyConditionJpaEntities = null
+                    ).apply {
+                        this.discountPolicyConditionJpaEntities = listOf(DiscountPolicyConditionJpaEntity(null, null, this))
+                    }
                 }
                 else -> throw RuntimeException("unexpected discountcondition type")
             }
