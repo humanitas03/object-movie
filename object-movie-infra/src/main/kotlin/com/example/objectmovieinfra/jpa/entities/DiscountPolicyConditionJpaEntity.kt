@@ -3,6 +3,7 @@ package com.example.objectmovieinfra.jpa.entities
 import com.example.objectmoviedomain.screen.DiscountCondition
 import com.fasterxml.jackson.annotation.JsonBackReference
 import javax.persistence.Entity
+import javax.persistence.FetchType
 import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
 import javax.persistence.Id
@@ -16,12 +17,12 @@ class DiscountPolicyConditionJpaEntity(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null,
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "discount_policy_id")
     @JsonBackReference
     var discountPolicy: DiscountPolicyJpaEntity?,
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JsonBackReference
     @JoinColumn(name = "discount_condition_id")
     var discountCondition: DiscountConditionJpaEntity?

@@ -43,7 +43,7 @@ class DiscountConditionJpaEntity(
     @Column
     var sequence: Int?,
 
-    @OneToMany(mappedBy = "discountCondition", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "discountCondition", fetch = FetchType.EAGER)
     @JsonManagedReference
     var discountPolicyConditionJpaEntities: List<DiscountPolicyConditionJpaEntity>?
 ) {

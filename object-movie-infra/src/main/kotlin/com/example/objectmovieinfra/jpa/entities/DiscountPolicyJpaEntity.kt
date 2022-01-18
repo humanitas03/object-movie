@@ -40,7 +40,7 @@ class DiscountPolicyJpaEntity(
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     var amount: BigDecimal?,
 
-    @OneToMany(mappedBy = "discountPolicy", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "discountPolicy", fetch = FetchType.EAGER)
     @JsonManagedReference
     var discountPolicyConditionJpaEntities: List<DiscountPolicyConditionJpaEntity>?
 ) {
