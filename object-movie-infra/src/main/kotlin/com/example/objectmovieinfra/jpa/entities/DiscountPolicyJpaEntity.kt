@@ -12,6 +12,7 @@ import com.fasterxml.jackson.annotation.JsonFormat
 import com.fasterxml.jackson.annotation.JsonManagedReference
 import java.math.BigDecimal
 import java.util.* // ktlint-disable no-wildcard-imports
+import javax.persistence.CascadeType
 import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.EnumType
@@ -40,7 +41,7 @@ class DiscountPolicyJpaEntity(
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     var amount: BigDecimal?,
 
-    @OneToMany(mappedBy = "discountPolicy", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "discountPolicy", fetch = FetchType.EAGER, cascade = [CascadeType.ALL])
     @JsonManagedReference
     var discountPolicyConditionJpaEntities: List<DiscountPolicyConditionJpaEntity>?
 ) {

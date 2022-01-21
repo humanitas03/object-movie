@@ -30,7 +30,7 @@ class ReservationJpaEntity(
     @Column
     var fee: Long,
 
-    @ManyToOne(cascade = [CascadeType.ALL], fetch = FetchType.EAGER)
+    @ManyToOne(cascade = [CascadeType.DETACH], fetch = FetchType.EAGER)
     @JoinColumn(name = "screening_id")
     var screening: ScreeningJpaEntity
 ) {

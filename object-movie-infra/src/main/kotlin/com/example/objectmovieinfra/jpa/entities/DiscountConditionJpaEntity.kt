@@ -60,7 +60,7 @@ class DiscountConditionJpaEntity(
                         endTime = null,
                         discountPolicyConditionJpaEntities = null
                     ).apply {
-                        this.discountPolicyConditionJpaEntities = listOf(DiscountPolicyConditionJpaEntity(null, null, this))
+//                        this.discountPolicyConditionJpaEntities = listOf(DiscountPolicyConditionJpaEntity())
                     }
                 }
                 is PeriodCondition -> {
@@ -73,7 +73,7 @@ class DiscountConditionJpaEntity(
                         endTime = discountCondition.endTime,
                         discountPolicyConditionJpaEntities = null
                     ).apply {
-                        this.discountPolicyConditionJpaEntities = listOf(DiscountPolicyConditionJpaEntity(null, null, this))
+//                        this.discountPolicyConditionJpaEntities = listOf(DiscountPolicyConditionJpaEntity(null, this))
                     }
                 }
                 else -> throw RuntimeException("unexpected discountcondition type")

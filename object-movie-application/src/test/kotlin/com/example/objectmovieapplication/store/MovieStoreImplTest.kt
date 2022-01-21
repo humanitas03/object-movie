@@ -8,6 +8,7 @@ import com.example.objectmoviedomain.screen.PercentDiscountPolicy
 import com.example.objectmoviedomain.screen.PeriodCondition
 import com.example.objectmoviedomain.screen.SequenceCondition
 import com.example.objectmovieinfra.jpa.store.MovieStoreImpl
+import com.fasterxml.jackson.databind.ObjectMapper
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.DisplayName
@@ -25,7 +26,8 @@ import javax.persistence.EntityManagerFactory
 @ActiveProfiles("test")
 class MovieStoreImplTest @Autowired constructor(
     val movieStoreImpl: MovieStoreImpl,
-    val emf: EntityManagerFactory
+    val emf: EntityManagerFactory,
+    var objectMapper: ObjectMapper
 ) {
 
     @Test
@@ -48,6 +50,7 @@ class MovieStoreImplTest @Autowired constructor(
 
         movieStoreImpl.find(testMovie.movieId.toString()).let {
             assertNotNull(it)
+            println(objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(it))
             assertEquals(testMovie.movieId, it.movieId)
             assertEquals(testMovie.discountPolicy.discountPolicyId, it.discountPolicy.discountPolicyId)
         }
@@ -73,8 +76,10 @@ class MovieStoreImplTest @Autowired constructor(
 
         movieStoreImpl.find(testMovie.movieId.toString()).let {
             assertNotNull(it)
+            println(objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(it))
             assertEquals(testMovie.movieId, it.movieId)
             assertEquals(testMovie.discountPolicy.discountPolicyId, it.discountPolicy.discountPolicyId)
+            assertEquals(PercentDiscountPolicy::class.java, testMovie.discountPolicy::class.java)
         }
     }
 
@@ -103,8 +108,10 @@ class MovieStoreImplTest @Autowired constructor(
 
         movieStoreImpl.find(testMovie.movieId.toString()).let {
             assertNotNull(it)
+            println(objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(it))
             assertEquals(testMovie.movieId, it.movieId)
             assertEquals(testMovie.discountPolicy.discountPolicyId, it.discountPolicy.discountPolicyId)
+            assertEquals(AmountDiscountPolicy::class.java, testMovie.discountPolicy::class.java)
         }
     }
 }
