@@ -32,7 +32,6 @@ class ScreeningJpaEntity(
     companion object {
         fun from(screening: Screening): ScreeningJpaEntity {
             return ScreeningJpaEntity(
-//                id = null,
                 screeningId = screening.screeningId.toString(),
                 sequence = screening.sequence,
                 whenScreened = screening.whenScreened,
