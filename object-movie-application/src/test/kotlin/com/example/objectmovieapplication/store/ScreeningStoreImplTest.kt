@@ -17,7 +17,7 @@ import java.time.LocalDateTime
 import java.util.UUID
 
 @SpringBootTest
-@ActiveProfiles("test")
+@ActiveProfiles("default")
 class ScreeningStoreImplTest {
 
     @Autowired

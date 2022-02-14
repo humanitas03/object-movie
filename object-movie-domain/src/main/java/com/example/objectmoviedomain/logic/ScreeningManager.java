@@ -10,12 +10,12 @@ import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class ScreeningManager implements ScreeningService {
+public class ScreeningManager {
 
     private final ScreeningRepository screeningRepository;
     private final ReservationRepository reservationRepository;
 
-    @Override
+//    @Override
     public Reservation reserve(Customer customer, int audienceCount, UUID screeningId) {
         // 저장된 상영 정보를 로드
         Screening currentScreening = screeningRepository.retrieveOne(screeningId);
