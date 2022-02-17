@@ -12,8 +12,8 @@ import java.util.UUID
 @Service
 @Transactional
 class ScreeningServiceImpl(
-    private val screeningRepository: ScreeningRepository,
-    private val reservationRepository: ReservationRepository
+    screeningRepository: ScreeningRepository,
+    reservationRepository: ReservationRepository
 ) : ScreeningManager(screeningRepository, reservationRepository) {
 
     // Transactional Proxy 적용을 위한 Overriding

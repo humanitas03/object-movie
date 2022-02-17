@@ -1,5 +1,6 @@
 package com.example.objectmoviedomain.screen;
 
+import com.example.objectmoviedomain.screen.movie.Movie;
 import java.time.LocalDateTime;
 import java.util.UUID;
 

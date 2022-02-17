@@ -3,6 +3,7 @@ package com.example.objectmoviedomain.screen;
 import java.util.*;
 import lombok.Getter;
 
+@Deprecated
 @Getter
 public abstract class DiscountPolicy {
     private UUID discountPolicyId;

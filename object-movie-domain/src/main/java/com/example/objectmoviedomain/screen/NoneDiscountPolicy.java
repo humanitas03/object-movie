@@ -2,6 +2,7 @@ package com.example.objectmoviedomain.screen;
 
 import java.util.UUID;
 
+@Deprecated
 public class NoneDiscountPolicy extends DiscountPolicy {
 
     public NoneDiscountPolicy(){

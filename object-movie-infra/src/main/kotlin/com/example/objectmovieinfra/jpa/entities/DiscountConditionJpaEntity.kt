@@ -4,7 +4,6 @@ import com.example.objectmoviedomain.screen.DiscountCondition
 import com.example.objectmoviedomain.screen.PeriodCondition
 import com.example.objectmoviedomain.screen.SequenceCondition
 import com.example.objectmovieinfra.jpa.entities.enums.DiscountConditionType
-import com.fasterxml.jackson.annotation.JsonManagedReference
 import java.time.DayOfWeek
 import java.time.LocalTime
 import java.util.* // ktlint-disable no-wildcard-imports
@@ -12,9 +11,7 @@ import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.EnumType
 import javax.persistence.Enumerated
-import javax.persistence.FetchType
 import javax.persistence.Id
-import javax.persistence.OneToMany
 import javax.persistence.Table
 import kotlin.NoSuchElementException
 
@@ -43,9 +40,6 @@ class DiscountConditionJpaEntity(
     @Column
     var sequence: Int?,
 
-    @OneToMany(mappedBy = "discountCondition", fetch = FetchType.EAGER)
-    @JsonManagedReference
-    var discountPolicyConditionJpaEntities: List<DiscountPolicyConditionJpaEntity>?
 ) {
     companion object {
         fun from(discountCondition: DiscountCondition): DiscountConditionJpaEntity {
@@ -58,7 +52,6 @@ class DiscountConditionJpaEntity(
                         dayOfWeek = null,
                         startTime = null,
                         endTime = null,
-                        discountPolicyConditionJpaEntities = null
                     ).apply {
 //                        this.discountPolicyConditionJpaEntities = listOf(DiscountPolicyConditionJpaEntity())
                     }
@@ -71,13 +64,19 @@ class DiscountConditionJpaEntity(
                         dayOfWeek = discountCondition.dayOfWeek,
                         startTime = discountCondition.startTime,
                         endTime = discountCondition.endTime,
-                        discountPolicyConditionJpaEntities = null
                     ).apply {
 //                        this.discountPolicyConditionJpaEntities = listOf(DiscountPolicyConditionJpaEntity(null, this))
                     }
                 }
                 else -> throw RuntimeException("unexpected discountcondition type")
             }
+        }
+    }
+
+    fun toDomain(): DiscountCondition {
+        return when (this.discountConditionType) {
+            DiscountConditionType.SEQUENCE -> toSequenceDiscountConditionDomain()
+            DiscountConditionType.PERIOD -> toPeriodDiscountConditionDomain()
         }
     }
 

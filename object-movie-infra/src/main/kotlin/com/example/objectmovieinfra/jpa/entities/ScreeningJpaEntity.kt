@@ -1,6 +1,7 @@
 package com.example.objectmovieinfra.jpa.entities
 
 import com.example.objectmoviedomain.screen.Screening
+import com.example.objectmovieinfra.jpa.entities.movie.MovieJpaEntity
 import java.time.LocalDateTime
 import java.util.UUID
 import javax.persistence.CascadeType

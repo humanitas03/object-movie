@@ -3,6 +3,7 @@ package com.example.objectmoviedomain.screen;
 import java.util.UUID;
 import lombok.Getter;
 
+@Deprecated
 @Getter
 public class PercentDiscountPolicy extends DiscountPolicy{
 

@@ -1,8 +1,13 @@
 package com.example.objectmovieinfra.jpa.store
 
 import com.example.objectmoviedomain.interfaces.store.MovieRepository
-import com.example.objectmoviedomain.screen.Movie
-import com.example.objectmovieinfra.jpa.entities.MovieJpaEntity
+import com.example.objectmoviedomain.screen.movie.AmountDiscountMovie
+import com.example.objectmoviedomain.screen.movie.Movie
+import com.example.objectmoviedomain.screen.movie.NoneDiscountMovie
+import com.example.objectmoviedomain.screen.movie.PercentDiscountMovie
+import com.example.objectmovieinfra.jpa.entities.movie.AmountDiscountMovieJpaEntity
+import com.example.objectmovieinfra.jpa.entities.movie.NoneDiscountMovieJpaEntity
+import com.example.objectmovieinfra.jpa.entities.movie.PercentDiscountMovieJpaEntity
 import com.example.objectmovieinfra.jpa.repository.MovieJpaRepository
 import org.springframework.stereotype.Repository
 
@@ -12,7 +17,12 @@ class MovieStoreImpl(
 ) : MovieRepository {
     override fun create(movie: Movie?) {
         movie?.let {
-            jpaRepository.save(MovieJpaEntity.from(it))
+            when (it) {
+                is AmountDiscountMovie -> jpaRepository.save(AmountDiscountMovieJpaEntity.from(it))
+                is PercentDiscountMovie -> jpaRepository.save(PercentDiscountMovieJpaEntity.from(it))
+                is NoneDiscountMovie -> jpaRepository.save(NoneDiscountMovieJpaEntity.from(it))
+                else -> throw NoSuchElementException("Movie 타입 에러[${it.javaClass.simpleName}]")
+            }
         }
     }
 
